@@ -3,492 +3,763 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>شوف حظك من مهندس محمد حماد</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <title>لعبة هرم الحظ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#FFF9E6,#FFEDD5);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;}
-    .container{max-width:1100px;width:100%;}
-    .screen{display:none;text-align:center;padding:60px 18px;background:#FFFBE6;border-radius:17px;border:8px solid #8B7355;margin:18px auto;box-shadow:0 15px 46px #0001;}
-    .screen.active{display:block;}
-    .logo-icon{font-size:4em;margin-bottom:15px;}
-    .logo{font-size:2.4em;font-weight:700;color:#8B4513;text-shadow:2px 2px 4px #d4a57480;}
-    .subtitle{margin:15px 0;background:#f5e4bf80;border-radius:8px;font-size:1.08em;padding:13px 15px;color:#6B3410;}
-    .input-group{margin:22px 0;text-align:center}
-    .input-group label{display:block;margin-bottom:10px;color:#8B4513;font-weight:700;font-size:1.1em;}
-    .input-cells{display:flex;gap:7px;justify-content:center;}
-    .input-cell{width:45px;height:56px;font-size:2em;text-align:center;border:2px solid #D4A574;border-radius:8px;background:#fffbe6;color:#8B4513;font-family:inherit;}
-    .input-cell:focus{border-color:#A0826D;box-shadow:0 0 8px #d4a57471;}
-    .btn{padding:15px 30px;margin:10px 5px;border-radius:8px;border:3px solid #8B4513;font-size:1.1em;font-weight:700;background:linear-gradient(135deg,#D4A574,#8B7355);color:#FFF8DC;cursor:pointer;transition:.3s;box-shadow:0 5px 15px #0002;}
-    .btn:hover{transform:translateY(-3px);box-shadow:0 10px 25px #8B451388;}
-    .btn-small{font-size:.95em;padding:12px 20px;}
-    .admin-btn{background:linear-gradient(135deg,#B8860B,#8B6914);}
-    .danger-btn{background:linear-gradient(135deg,#CD5C5C,#8B3A3A);}
-    .game-title{font-size:2.2em;color:#8B4513;font-weight:bold;margin-bottom:10px;}
-    .user-code{font-size:1.1em;margin:11px 0;color:#6B3410;font-weight:700;padding:8px;background:#f6eebe55;border-radius:9px;display:inline-block;}
-    .clock{font-size:1em;background:#efe2c0;border-radius:8px;padding:7px 15px;display:inline-block;color:#8B4513;font-family:'Courier New',monospace;}
-    .balloons-container{margin:25px auto;padding:18px;background:#fffaee;border-radius:13px;}
-    .cards-row{display:flex;justify-content:center;gap:15px;margin-bottom:15px;flex-wrap:wrap;}
-    .card{width:120px;height:150px;margin:7px 3px;cursor:pointer;perspective:900px;}
-    @media(max-width:900px){.card{width:90px;height:120px;}
-      .screen{padding:35px 2vw;}
-      .balloons-container{padding:8px;}
-      .logo{font-size:1.7em;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    @media(max-width:600px){.card{width:72px;height:90px;}
-      .input-cell{width:31px;height:42px;}
-      body{padding:6px;}
-      .logo{font-size:1.2em;}
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #FFF9E6, #FFEDD5);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
-    .card-inner{width:100%;height:100%;position:relative;transition:transform .6s;transform-style:preserve-3d;}
-    .card.pop .card-inner{animation:cardPop .6s ease-out forwards;}
-    @keyframes cardPop{0%{transform:rotateY(0deg) scale(1);opacity:1;}50%{transform:rotateY(180deg) scale(1.2);}100%{transform:rotateY(180deg) scale(0);opacity:0;}}
-    .card-face{width:100%;height:100%;position:absolute;border-radius:12px;box-shadow:0 10px 20px #0003,0 2px 5px #0001;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;font-size:2.6em;font-weight:bold;border:3px solid #A0826D;}
-    .card-front{background:linear-gradient(135deg,#FFE4B5,#F5DEB3);color:#6B3410;}
-    .card-back{background:#fff;transform:rotateY(180deg);background-size:cover;background-position:center;}
-    .copy-btn{background:#FFF8DC;border:1px solid #8B7355;color:#8B4513;cursor:pointer;border-radius:5px;font-size:1.16em;margin-right:8px;padding:2px 9px;}
-    .copy-btn:hover{background:#FFD36E;}
-    .result-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:1000;}
-    .result-modal.active{display:flex;}
-    .result-box{background:linear-gradient(to bottom,#FFFBE6,#FFFACD);border-radius:11px;border:10px solid #8B7355;padding:45px 20px;box-shadow:0 20px 40px #0002;max-width:430px;width:97%;}
-    .result-title{font-size:2em;font-weight:bold;margin-bottom:12px;}
-    .result-content{font-size:1.16em;margin-bottom:15px;color:#6B3410;font-weight:700;padding:12px;background:#ffe;}
-    .remaining-msg{color:#8B4513;font-size:1.05em;margin-top:12px;padding:11px;background:#f0e6c185;border-radius:5px;}
-    .admin-codes-list{background:#fae7cd33;padding:15px;border-radius:8px;margin:18px 0;text-align:right;border:2px solid #D4A574;max-height:390px;overflow-y:auto;}
-    .admin-codes-list h3{color:#8B4513;margin-bottom:10px;font-weight:700;font-size:1.09em;}
-    .codes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:9px;}
-    .code-item{background:#fff;padding:8px 7px;border-radius:8px;border:2px solid #d4a574;font-family:'Courier New',monospace;color:#8B4513;box-shadow:0 2px 5px #0001;display:flex;align-items:center;justify-content:space-between;}
-    .code-text{font-weight:bold;font-size:1em;}
-    .code-result{font-size:.95em;color:#6B3410;font-style:italic;margin-top:5px;}
-    .success{color:#06603b;font-weight:bold;margin-top:13px;padding:8px;background:#E8F5E9;border-radius:8px;}
-    .error{color:#ce2121;font-weight:bold;margin-top:13px;padding:8px;background:#FFEBEE;border-radius:8px;}
-    textarea{min-height:100px;resize:vertical;}
-    .confetti{position:fixed;pointer-events:none;z-index:999;}
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      position: relative;
+    }
+    .screen {
+      display: none;
+      text-align: center;
+      padding: 60px 28px;
+      background: #FFFBE6;
+      border-radius: 17px;
+      border: 8px solid #8B7355;
+      margin: 18px auto;
+      box-shadow: 0 15px 46px rgba(0,0,0,0.1);
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .screen.active { display: block; }
+    .logo-icon { font-size: 4em; margin-bottom: 15px; }
+    .logo {
+      font-size: 2.4em;
+      font-weight: 700;
+      color: #8B4513;
+      text-shadow: 2px 2px 4px rgba(212, 165, 116, 0.5);
+    }
+    .subtitle {
+      margin: 15px 0;
+      background: rgba(245, 228, 191, 0.5);
+      border-radius: 8px;
+      font-size: 1.08em;
+      padding: 13px 15px;
+      color: #6B3410;
+    }
+    .input-group {
+      margin: 22px 0;
+      text-align: center;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 10px;
+      color: #8B4513;
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+    .input-cells {
+      display: flex;
+      gap: 7px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .input-cell {
+      width: 45px;
+      height: 56px;
+      font-size: 2em;
+      text-align: center;
+      border: 2px solid #D4A574;
+      border-radius: 8px;
+      background: #fffbe6;
+      color: #8B4513;
+      font-family: inherit;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .input-cell:focus {
+      outline: none;
+      border-color: #A0826D;
+      box-shadow: 0 0 8px rgba(212, 165, 116, 0.45);
+      background: #fff;
+    }
+    .btn {
+      padding: 15px 30px;
+      margin: 10px 5px;
+      border-radius: 8px;
+      border: 3px solid #8B4513;
+      font-size: 1.1em;
+      font-weight: 700;
+      background: linear-gradient(135deg, #D4A574, #8B7355);
+      color: #FFF8DC;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(139, 69, 19, 0.35);
+    }
+    .btn:active { transform: translateY(-1px); }
+    .btn-small {
+      font-size: 0.95em;
+      padding: 12px 20px;
+      margin: 5px;
+    }
+    .admin-btn {
+      background: linear-gradient(135deg, #B8860B, #8B6914);
+    }
+    .danger-btn {
+      background: linear-gradient(135deg, #CD5C5C, #8B3A3A);
+    }
+    .game-title {
+      font-size: 2.2em;
+      color: #8B4513;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .user-code {
+      font-size: 1.1em;
+      margin: 11px 0;
+      color: #6B3410;
+      font-weight: 700;
+      padding: 8px;
+      background: rgba(246, 238, 190, 0.35);
+      border-radius: 9px;
+      display: inline-block;
+    }
+    .clock {
+      font-size: 1em;
+      background: #efe2c0;
+      border-radius: 8px;
+      padding: 7px 15px;
+      display: inline-block;
+      color: #8B4513;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+    }
+    .balloons-container {
+      margin: 25px auto;
+      padding: 18px;
+      background: #fffaee;
+      border-radius: 13px;
+    }
+    .cards-row {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .card {
+      width: 120px;
+      height: 150px;
+      margin: 7px 3px;
+      cursor: pointer;
+      perspective: 900px;
+    }
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .card.pop .card-inner {
+      animation: cardPop 0.6s ease-out forwards;
+    }
+    @keyframes cardPop {
+      0% { transform: rotateY(0deg) scale(1); opacity: 1; }
+      50% { transform: rotateY(180deg) scale(1.2); }
+      100% { transform: rotateY(180deg) scale(0); opacity: 0; }
+    }
+    .card-face {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15), 0 2px 5px rgba(0,0,0,0.05);
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.6em;
+      font-weight: bold;
+      border: 3px solid #A0826D;
+    }
+    .card-front {
+      background: linear-gradient(135deg, #FFE4B5, #F5DEB3);
+      color: #6B3410;
+      overflow: hidden;
+    }
+    .card-front img {
+      width: 90px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px #FFD36E;
+      background: #faf9e5;
+    }
+    .card-back {
+      background: #fff;
+      transform: rotateY(180deg);
+      background-size: cover;
+      background-position: center;
+    }
+    .admin-codes-list {
+      background: rgba(250, 231, 205, 0.2);
+      padding: 15px;
+      border-radius: 8px;
+      margin: 18px 0;
+      text-align: right;
+      border: 2px solid #D4A574;
+      max-height: 390px;
+      overflow-y: auto;
+    }
+    .admin-codes-list h3 {
+      color: #8B4513;
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 1.09em;
+    }
+    .codes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 9px;
+    }
+    .code-item {
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #d4a574;
+      font-family: 'Courier New', monospace;
+      color: #8B4513;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .code-top {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 5px;
+      justify-content: space-between;
+      gap: 5px;
+    }
+    .code-text {
+      font-weight: bold;
+      font-size: 0.95em;
+    }
+    .copy-btn {
+      background: #FFF8DC;
+      border: 1px solid #8B7355;
+      color: #8B4513;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 0.8em;
+      padding: 2px 8px;
+      transition: all 0.25s ease;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .copy-btn:hover {
+      background: #FFD36E;
+    }
+    .code-result {
+      display: block;
+      width: 100%;
+      margin-top: 5px;
+      font-size: 0.9em;
+      padding: 6px;
+      background: linear-gradient(135deg, #FFF9C4, #FFD54F);
+      color: #8B4513;
+      border-radius: 5px;
+      font-weight: bold;
+      box-shadow: 0 2px 12px rgba(255, 213, 79, 0.3);
+      text-align: center;
+      border: 1px solid rgba(255, 213, 79, 0.6);
+    }
+    .success {
+      color: #06603b;
+      font-weight: bold;
+      margin-top: 13px;
+      padding: 10px;
+      background: #E8F5E9;
+      border-radius: 8px;
+    }
+    .error {
+      color: #ce2121;
+      font-weight: bold;
+      margin-top: 13px;
+      padding: 10px;
+      background: #FFEBEE;
+      border-radius: 8px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      resize: vertical;
+      font-family: 'Courier New', monospace;
+      padding: 10px;
+      border: 2px solid #D4A574;
+      border-radius: 8px;
+      color: #8B4513;
+    }
+    input[type="password"] {
+      padding: 10px 15px;
+      border: 2px solid #D4A574;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1em;
+      color: #8B4513;
+      width: 200px;
+    }
+    .confetti {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .result-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .result-modal.active { display: flex; }
+    .result-box {
+      background: linear-gradient(to bottom, #FFFBE6, #FFFACD);
+      border-radius: 11px;
+      border: 10px solid #8B7355;
+      padding: 45px 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      max-width: 430px;
+      width: 97vw;
+      text-align: center;
+      margin: 0 auto;
+      animation: popIn 0.4s ease-out;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .result-title {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .result-content {
+      font-size: 1.3em;
+      color: #8B4513;
+      margin-bottom: 15px;
+    }
+    @media(max-width:900px) {
+      .card { width: 90px; height: 120px; }
+      .screen { padding: 35px 2vw; }
+      .logo { font-size: 1.7em; }
+    }
+    @media(max-width:600px) {
+      .card { width: 72px; height: 90px; }
+      .input-cell { width: 31px; height: 42px; font-size: 1.5em; }
+      body { padding: 6px; }
+      .logo { font-size: 1.2em; }
+      .screen { padding: 30px 15px; }
+      .game-title { font-size: 1.5em; }
+    }
   </style>
 </head>
 <body>
 <div class="container">
-<div class="screen active" id="loginScreen">
-  <div class="logo-icon">Pyramid</div>
-  <div class="logo">شوف حظك</div>
-  <div class="subtitle">Urn الحظ الفرعوني المصري Urn</div>
-  <div style="font-size:1.2em;margin:14px 0;color:#8B4513;font-weight:600;">مهندس محمد حماد</div>
-  <div class="input-group">
-    <label>أدخل الرمز السري (6 أرقام)</label>
-    <div class="input-cells" id="inputCells">
-      <input class="input-cell" maxlength="1" inputmode="numeric">
-      <input class="input-cell" maxlength="1" inputmode="numeric">
-      <input class="input-cell" maxlength="1" inputmode="numeric">
-      <input class="input-cell" maxlength="1" inputmode="numeric">
-      <input class="input-cell" maxlength="1" inputmode="numeric">
-      <input class="input-cell" maxlength="1" inputmode="numeric">
+  <!-- شاشة تسجيل الدخول -->
+  <div class="screen active" id="loginScreen">
+    <div class="logo-icon">🔺</div>
+    <div class="logo">لعبة هرم الحظ</div>
+    <div class="subtitle">اختبر حظك في لعبة الهرم الفرعونية المصرية</div>
+    <div style="font-size:1.2em;margin:14px 0;color:#8B4513;font-weight:600;">مهندس محمد حماد</div>
+    <div class="input-group">
+      <label>أدخل الرمز السري (6 أرقام)</label>
+      <div class="input-cells" id="inputCells">
+        <input class="input-cell" maxlength="1" inputmode="numeric">
+        <input class="input-cell" maxlength="1" inputmode="numeric">
+        <input class="input-cell" maxlength="1" inputmode="numeric">
+        <input class="input-cell" maxlength="1" inputmode="numeric">
+        <input class="input-cell" maxlength="1" inputmode="numeric">
+        <input class="input-cell" maxlength="1" inputmode="numeric">
+      </div>
+      <div class="error" id="error"></div>
     </div>
-    <div class="error" id="error"></div>
+    <button class="btn" onclick="appLogin()">🎮 دخول اللعبة</button>
+    <button class="btn admin-btn" onclick="appShowAdmin()">🔒 لوحة التحكم</button>
   </div>
-  <button class="btn" onclick="appLogin()">Fleur-de-lis دخول اللعبة Fleur-de-lis</button>
-  <button class="btn admin-btn" onclick="appShowAdmin()">Lock لوحة التحكم</button>
-</div>
-
-<div class="screen" id="adminLoginScreen">
-  <div class="logo">Lock لوحة التحكم</div>
-  <div class="subtitle">أدخل كلمة السر</div>
-  <div class="input-group">
-    <input type="password" id="adminPassword" placeholder="كلمة السر">
-    <div class="error" id="adminError"></div>
+  <!-- شاشة دخول الأدمن -->
+  <div class="screen" id="adminLoginScreen">
+    <div class="logo">🔒 لوحة التحكم</div>
+    <div class="subtitle">أدخل كلمة السر</div>
+    <div class="input-group">
+      <input type="password" id="adminPassword" placeholder="كلمة السر">
+      <div class="error" id="adminError"></div>
+    </div>
+    <button class="btn" onclick="appCheckAdmin()">دخول</button>
+    <button class="btn admin-btn" onclick="appBack()">رجوع</button>
   </div>
-  <button class="btn" onclick="appCheckAdmin()">دخول</button>
-  <button class="btn admin-btn" onclick="appBack()">رجوع</button>
-</div>
-
-<div class="screen" id="adminScreen">
-  <div class="logo">Lock لوحة التحكم الإدارية</div>
-  <div class="admin-codes-list">
-    <h3>الأكواد (<span id="codesCount">0</span>)</h3>
-    <div class="codes-grid" id="currentCodesList"></div>
+  <!-- شاشة الأكواد الإدارية -->
+  <div class="screen" id="adminScreen">
+    <div class="logo">🔒 لوحة التحكم الإدارية</div>
+    <div class="admin-codes-list">
+      <h3>الأكواد (<span id="codesCount">0</span>)</h3>
+      <div class="codes-grid" id="currentCodesList"></div>
+    </div>
+    <div class="input-group">
+      <label>أدخل أكواد جديدة (6 أرقام - سطر لكل كود)</label>
+      <textarea id="codesTextarea"></textarea>
+    </div>
+    <div>
+      <button class="btn btn-small" onclick="appUpdateCodes()">💾 حفظ</button>
+      <button class="btn btn-small admin-btn" onclick="appGenerateCodes()">🎲 توليد</button>
+      <button class="btn btn-small danger-btn" onclick="appClearPrizes()">🔄 إعادة تعيين</button>
+      <button class="btn btn-small danger-btn" onclick="appBack()">❌ خروج</button>
+    </div>
+    <div id="successMessage"></div>
   </div>
-  <div class="input-group">
-    <label>أدخل أكواد جديدة (6 أرقام - سطر لكل كود)</label>
-    <textarea id="codesTextarea"></textarea>
+  <!-- شاشة اللعبة -->
+  <div class="screen" id="gameScreen">
+    <div class="game-title">🎯 اختر واحدة من الكروت العشرة</div>
+    <div class="user-code">رمزك: <span id="displayCode"></span></div>
+    <div class="clock" id="clock">00:00:00</div>
+    <div class="balloons-container" id="balloonsContainer"></div>
   </div>
-  <div class="btn-group">
-    <button class="btn btn-small" onclick="appUpdateCodes()">Save حفظ</button>
-    <button class="btn btn-small admin-btn" onclick="appGenerateCodes()">Dice توليد</button>
-    <button class="btn btn-small danger-btn" onclick="appClearPrizes()">Reset بدء اليوم من جديد</button>
-    <button class="btn btn-small danger-btn" onclick="appBack()">Exit خروج</button>
-  </div>
-  <div id="successMessage"></div>
 </div>
-
-<div class="screen" id="gameScreen">
-  <div class="game-title">Urn اختر واحدة من الكروت العشرة Urn</div>
-  <div class="user-code">رمزك: <span id="displayCode"></span></div>
-  <div class="clock" id="clock">00:00:00</div>
-  <div class="balloons-container" id="balloonsContainer"></div>
-</div>
-</div>
-
+<!-- موضوع النتيجة -->
 <div class="result-modal" id="resultModal">
   <div class="result-box">
-    <div class="result-title">Party Popper مبروك! Party Popper</div>
+    <div class="result-title">🎉 مبروك! 🎉</div>
     <div class="result-content" id="resultContent"></div>
-    <div class="remaining-msg" id="remainingMsg"></div>
     <button class="btn" onclick="appCloseResult()">حسناً</button>
   </div>
 </div>
+<script>
+  const ADMIN_PASS = '521988';
+  const PRIZES = ['🎤 سيشن حصري', '🎵 أغنية', '🎤🎵 سيشن + أغنية'];
+  const SUITS = ['♠', '♥', '♦', '♣'];
+  let currentCode = null;
+  let gameActive = false;
+  let codes = JSON.parse(localStorage.getItem('gameCodes')) || {};
 
-<!-- Firebase SDK -->
-<script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getDatabase, ref, set, get, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCT1XU0_I1iez8Vu7bCgggfZpXTF3pzAtE",
-  authDomain: "game-luck-aa566.firebaseapp.com",
-  databaseURL: "https://game-luck-aa566-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "game-luck-aa566",
-  storageBucket: "game-luck-aa566.appspot.com",
-  messagingSenderId: "328528405451",
-  appId: "1:328528405451:web:e4a46205036e70e60d0c4e"
-};
-
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
-const ADMIN_PASS = '521988';
-const PRIZES = ['سيشن حصري Microphone', 'أغنية Musical Note', 'سيشن + أغنية Microphone Musical Note'];
-const CARD_IMAGES = [
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3BhZ2VzL3JtLzEzL3Jhd3BpeGVsX3BuZ19waGFyYW9oX2FkdWx0X3doaXRlX2JhY2tncm91bmRfcmVwcmVzZW50YXRpb25fZDM5YzI1OTA2LThlYTUtNDBhMy1iNjc2LTdlMTg2ODYzZGIwNS5wbmc.png",
-  "https://freesvg.org/img/cleopatra.png",
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzEwLzEwMTMxMjQwLmpwZw.jpg",
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzEwLzEwMTMyOTAzLmpwZw.jpg",
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3BhZ2VzL3JtLzI4L3Jhd3BpeGVsX3BuZ19zcGhpbnhmaWxlLTUucG5n.png",
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzEwLzEwMTMxMjQwLmpwZw.jpg",
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzMwL3Jhd3BpeGVsX3BuZ19maWxlLTYwLnBuZw.png",
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzMyL3Jhd3BpeGVsX3BuZ19yZWxpZXZfR2FybGFuZC1mZS5wbmc.png",
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzkyL3Jhd3BpeGVsX3BuZ19raW5nYXNfd2lyZV9ibGVuZHJfbHVjYXNfcGVsLnBuZw.png",
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzYyL3Jhd3BpeGVsX3BuZ19hbmltbF9jaGllZnNfc25ha2VfaGVhZHNfZXJhLnBuZw.png"
-];
-
-let currentCode = null;
-let gameActive = false;
-
-// دالة جلب الأكواد مع تنظيف المفاتيح
-async function getCodes() {
-  const codesRef = ref(database, 'gameCodes');
-  const snapshot = await get(codesRef);
-  if (!snapshot.exists()) return {};
-  
-  const data = snapshot.val();
-  const codes = {};
-  
-  Object.keys(data).forEach(key => {
-    const cleanKey = String(key).trim();
-    codes[cleanKey] = {
-      used: !!data[key].used,
-      prize: data[key].prize || null,
-      date: data[key].date || null
-    };
-  });
-  
-  return codes;
-}
-
-// دالة حفظ الأكواد مع تنظيف
-async function saveCodes(codes) {
-  const codesRef = ref(database, 'gameCodes');
-  const cleanCodes = {};
-  
-  Object.keys(codes).forEach(key => {
-    const k = String(key).trim();
-    cleanCodes[k] = {
-      used: !!codes[key].used,
-      prize: codes[key].prize || null,
-      date: codes[key].date || null
-    };
-  });
-  
-  await set(codesRef, cleanCodes);
-}
-
-// عرض الأكواد في لوحة التحكم
-async function displayCodes() {
-  const codes = await getCodes();
-  const list = document.getElementById('currentCodesList');
-  const countEl = document.getElementById('codesCount');
-  
-  const arr = Object.entries(codes);
-  countEl.textContent = arr.length;
-
-  if (arr.length === 0) {
-    list.innerHTML = '<p style="color:#8B4513; text-align:center; padding:20px;">لا توجد أكواد حاليًا. أضف أكوادًا جديدة أو استخدم زر "توليد"</p>';
-    return;
+  function saveCodes() {
+    localStorage.setItem('gameCodes', JSON.stringify(codes));
   }
-
-  list.innerHTML = '';
-  arr.forEach(([code, data]) => {
-    const result = data.used ? (data.prize || 'استخدم') : 'جديد';
-    const item = document.createElement('div');
-    item.className = 'code-item';
-    item.innerHTML = `
-      <span class="code-text">${code}</span>
-      <button class="copy-btn" onclick="copyCode('${code}')">نسخ</button>
-      <span class="code-result">${result}</span>
-    `;
-    list.appendChild(item);
-  });
-}
-
-// دوال التحكم
-window.copyCode = function(code) {
-  const txt = `كودك في اللعبة هو: ${code}`;
-  navigator.clipboard.writeText(txt).then(() => showMsg('تم نسخ الكود!', 'success'));
-};
-
-window.appShowAdmin = function() { 
-  document.getElementById('adminPassword').value = ''; 
-  document.getElementById('adminError').textContent = ''; 
-  showScreen('adminLoginScreen'); 
-};
-
-window.appCheckAdmin = async function() {
-  const pass = document.getElementById('adminPassword').value;
-  if (pass === ADMIN_PASS) {
+  function displayCodes() {
+    const list = document.getElementById('currentCodesList');
+    const countEl = document.getElementById('codesCount');
+    const arr = Object.entries(codes);
+    countEl.textContent = arr.length;
+    list.innerHTML = '';
+    if (arr.length === 0) {
+      list.innerHTML = '<p style="color:#8B4513; text-align:center; padding:20px; grid-column:1/-1;">لا توجد أكواد</p>';
+      return;
+    }
+    arr.forEach(([code, data]) => {
+      const result = data.used ? (data.prize || 'مستخدم') : 'جديد';
+      const item = document.createElement('div');
+      item.className = 'code-item';
+      let topDiv = document.createElement('div');
+      topDiv.className = 'code-top';
+      let codeSpan = document.createElement('span');
+      codeSpan.className = 'code-text';
+      codeSpan.textContent = code;
+      let copyBtn = document.createElement('button');
+      copyBtn.className = 'copy-btn';
+      copyBtn.textContent = 'نسخ';
+      copyBtn.onclick = (e) => {
+        e.stopPropagation();
+        navigator.clipboard.writeText(code);
+        copyBtn.textContent = 'تم ✓';
+        setTimeout(() => copyBtn.textContent = 'نسخ', 1500);
+      };
+      topDiv.appendChild(codeSpan);
+      topDiv.appendChild(copyBtn);
+      item.appendChild(topDiv);
+      let resultSpan = document.createElement('span');
+      resultSpan.className = 'code-result';
+      resultSpan.textContent = result;
+      item.appendChild(resultSpan);
+      list.appendChild(item);
+    });
+  }
+  function showMsg(text, type) {
+    const el = document.getElementById('successMessage');
+    el.innerHTML = `<div class="${type}">${text}</div>`;
+    setTimeout(() => { el.innerHTML = ''; }, 2500);
+  }
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+  function clearInputCells() {
+    document.querySelectorAll('.input-cell').forEach(cell => cell.value = '');
+    document.getElementById('error').textContent = '';
+  }
+  window.appShowAdmin = function() {
+    document.getElementById('adminPassword').value = '';
     document.getElementById('adminError').textContent = '';
-    await displayCodes(); 
-    showScreen('adminScreen');
-  } else {
-    document.getElementById('adminError').textContent = 'كلمة السر غير صحيحة';
-  }
-};
-
-window.appBack = function() { showScreen('loginScreen'); clearInputCells(); };
-
-window.appUpdateCodes = async function() {
-  const txt = document.getElementById('codesTextarea').value;
-  const arr = txt.split('\n').map(c => c.trim()).filter(c => /^\d{6}$/.test(c));
-  if (arr.length === 0) { showMsg('أدخل أكواد صحيحة (6 أرقام)', 'error'); return; }
-  const unique = [...new Set(arr)];
-  if (unique.length !== arr.length) { showMsg('توجد أكواد مكررة', 'error'); return; }
-  
-  const codes = {}; 
-  unique.forEach(c => { codes[c] = { used: false, prize: null, date: null }; });
-  await saveCodes(codes); 
-  await displayCodes(); 
-  document.getElementById('codesTextarea').value = '';
-  showMsg(`تم حفظ ${unique.length} كود`, 'success');
-};
-
-window.appGenerateCodes = async function() {
-  const codes = {};
-  for (let i = 0; i < 32; i++) { 
-    const code = String(Math.floor(Math.random() * 900000 + 100000));
-    codes[code] = { used: false, prize: null, date: null }; 
-  }
-  await saveCodes(codes); 
-  await displayCodes(); 
-  showMsg('تم توليد 32 كود جديد', 'success');
-};
-
-function showMsg(text, type) {
-  const el = document.getElementById('successMessage');
-  el.innerHTML = `<div class="${type}">${text}</div>`;
-  setTimeout(() => { el.innerHTML = ''; }, 2500);
-}
-
-function showScreen(id) { 
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); 
-  document.getElementById(id).classList.add('active'); 
-}
-
-function clearInputCells() { 
-  document.querySelectorAll('.input-cell').forEach(cell => cell.value=''); 
-  document.getElementById('error').textContent = ''; 
-}
-
-// تسجيل الدخول - المُصحح
-window.appLogin = async function() {
-  let cells = Array.from(document.querySelectorAll('.input-cell'));
-  let inputCode = cells.map(c => c.value.trim()).join('');
-  let err = document.getElementById('error');
-  err.textContent = '';
-
-  if (!/^\d{6}$/.test(inputCode)) {
-    err.textContent = 'يجب إدخال 6 أرقام بالضبط';
-    return;
-  }
-
-  try {
-    const codes = await getCodes();
-    const code = String(inputCode);
-
-    if (!codes[code]) {
+    showScreen('adminLoginScreen');
+  };
+  window.appCheckAdmin = function() {
+    const pass = document.getElementById('adminPassword').value;
+    if (pass === ADMIN_PASS) {
+      document.getElementById('adminError').textContent = '';
+      displayCodes();
+      showScreen('adminScreen');
+    } else {
+      document.getElementById('adminError').textContent = 'كلمة السر غير صحيحة';
+    }
+  };
+  window.appBack = function() {
+    showScreen('loginScreen');
+    clearInputCells();
+  };
+  window.appUpdateCodes = function() {
+    const txt = document.getElementById('codesTextarea').value;
+    const arr = txt.split('\n').map(c => c.trim()).filter(c => /^\d{6}$/.test(c));
+    if (arr.length === 0) {
+      showMsg('أدخل أكواد صحيحة (6 أرقام)', 'error');
+      return;
+    }
+    const unique = [...new Set(arr)];
+    if (unique.length !== arr.length) {
+      showMsg('توجد أكواد مكررة', 'error');
+      return;
+    }
+    unique.forEach(c => {
+      if (!codes[c]) codes[c] = { used: false, prize: null };
+    });
+    saveCodes();
+    displayCodes();
+    document.getElementById('codesTextarea').value = '';
+    showMsg(`تم حفظ ${unique.length} كود`, 'success');
+  };
+  window.appGenerateCodes = function() {
+    for (let i = 0; i < 32; i++) {
+      let code = String(Math.floor(Math.random() * 900000 + 100000));
+      if (!codes[code]) codes[code] = { used: false, prize: null };
+    }
+    saveCodes();
+    displayCodes();
+    showMsg('تم توليد 32 كود جديد', 'success');
+  };
+  window.appClearPrizes = function() {
+    if (confirm('هل تريد فعلاً إعادة تعيين جميع الأكواد؟')) {
+      codes = {};
+      saveCodes();
+      displayCodes();
+      showMsg('تم إعادة تعيين الأكواد', 'success');
+    }
+  };
+  window.appLogin = function() {
+    let cells = Array.from(document.querySelectorAll('.input-cell'));
+    let inputCode = cells.map(c => c.value.trim()).join('');
+    let err = document.getElementById('error');
+    err.textContent = '';
+    if (!/^\d{6}$/.test(inputCode)) {
+      err.textContent = 'يجب إدخال 6 أرقام بالضبط';
+      return;
+    }
+    if (!codes[inputCode]) {
       err.textContent = 'الرمز غير صحيح أو غير موجود';
       return;
     }
-    if (codes[code].used) {
+    if (codes[inputCode].used) {
       err.textContent = 'الرمز مستخدم من قبل';
       return;
     }
-
-    currentCode = code;
+    currentCode = inputCode;
     startGame();
-
-  } catch (error) {
-    console.error("خطأ في الاتصال:", error);
-    err.textContent = 'خطأ في الاتصال، حاول مرة أخرى';
+  };
+  function startGame() {
+    showScreen('gameScreen');
+    document.getElementById('displayCode').textContent = currentCode;
+    renderCards();
+    updateClock();
+    setInterval(updateClock, 1000);
+    gameActive = true;
   }
-};
-
-function startGame() {
-  showScreen('gameScreen');
-  document.getElementById('displayCode').textContent = currentCode;
-  renderCards();
-  updateClock();
-  setInterval(updateClock, 1000);
-  gameActive = true;
-}
-
-function updateClock() {
-  const n = new Date();
-  document.getElementById('clock').textContent = 
-    String(n.getHours()).padStart(2,'0') + ':' + 
-    String(n.getMinutes()).padStart(2,'0') + ':' + 
-    String(n.getSeconds()).padStart(2,'0');
-}
-
-function renderCards() {
-  const c = document.getElementById('balloonsContainer'); c.innerHTML = '';
-  const suits = ['Spade Suit','Heart Suit','Diamond Suit','Club Suit'];
-  const cardsRow = document.createElement('div'); cardsRow.className = 'cards-row';
-  for (let i = 0; i < 10; i++) cardsRow.appendChild(createCard(i, suits));
-  c.appendChild(cardsRow);
-}
-
-function createCard(idx, suits) {
-  const card = document.createElement('div');
-  card.className = 'card';
-  const suit = suits[Math.floor(Math.random() * suits.length)];
-  card.innerHTML = `<div class="card-inner">
-    <div class="card-face card-front">${suit}</div>
-    <div class="card-face card-back" style="background-image:url('${CARD_IMAGES[idx % CARD_IMAGES.length]}')"></div>
-  </div>`;
-  card.onclick = () => flip(card, idx);
-  return card;
-}
-
-function flip(el, idx) {
-  if (!gameActive) return;
-  gameActive = false;
-  el.classList.add('pop');
-  playSound();
-  makeConfetti(el);
-  setTimeout(getPrize, 700);
-}
-
-async function getPrize() {
-  const win = Math.random() * 100;
-  let prize;
-  let today = new Date().toISOString().split('T')[0];
-  const prizesRef = ref(database, 'prizes/' + today);
-  let snap = await get(prizesRef); 
-  let usedPrizes = snap.exists() ? snap.val() : {};
-
-  if (win < 30) {
-    let available = PRIZES.filter((p, i) => !usedPrizes[i]);
-    if (available.length) {
-      let r = Math.floor(Math.random() * available.length);
-      prize = available[r];
-      usedPrizes[PRIZES.indexOf(prize)] = true;
-      await set(prizesRef, usedPrizes);
-    } else {
-      prize = 'No Entry Sign حظ أوفر Four Leaf Clover';
+  function updateClock() {
+    const n = new Date();
+    document.getElementById('clock').textContent =
+      String(n.getHours()).padStart(2, '0') + ':' +
+      String(n.getMinutes()).padStart(2, '0') + ':' +
+      String(n.getSeconds()).padStart(2, '0');
+  }
+  function renderCards() {
+    const container = document.getElementById('balloonsContainer');
+    container.innerHTML = '';
+    const row = document.createElement('div');
+    row.className = 'cards-row';
+    for (let i = 0; i < 10; i++) {
+      row.appendChild(createCard(i));
     }
-  } else {
-    prize = 'No Entry Sign حظ أوفر Four Leaf Clover';
+    container.appendChild(row);
   }
-
-  const codes = await getCodes();
-  codes[currentCode].used = true;
-  codes[currentCode].prize = prize;
-  codes[currentCode].date = today;
-  await saveCodes(codes);
-  showResult(prize);
-}
-
-function playSound() {
-  try {
-    const c = new (window.AudioContext||window.webkitAudioContext)(),t=c.currentTime;
-    const o=c.createOscillator(),g=c.createGain();
-    o.connect(g);g.connect(c.destination);
-    o.frequency.setValueAtTime(800,t);o.frequency.exponentialRampToValueAtTime(100,t+.1);
-    g.gain.setValueAtTime(.3,t);g.gain.exponentialRampToValueAtTime(.01,t+.1);
-    o.start(t);o.stop(t+.1);
-  } catch{}
-}
-
-function makeConfetti(el) {
-  const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
-  for (let i = 0; i < 30; i++) {
-    const conf=document.createElement('div');
-    conf.className='confetti';
-    conf.textContent=['Party Popper','Party Popper','Star','Sparkles','Crown','Trophy'][i%6];
-    conf.style.left=x+'px';conf.style.top=y+'px';conf.style.fontSize='1.8em';
-    document.body.appendChild(conf);
-    let a=(Math.PI*2*i)/30,v=7+Math.random()*5,vx=Math.cos(a)*v,vy=Math.sin(a)*v-7,px=x,py=y,vy2=vy;
-    (function anim(){px+=vx;py+=vy2;vy2+=.2;conf.style.left=px+'px';conf.style.top=py+'px';conf.style.opacity=1-(py-y)/300;if(py-y<300)requestAnimationFrame(anim);else conf.remove();})();
+  // -- تعديل الجزء الخاص بالكروت فقط ليعرض صور فرعونية لكل كارت --
+  function createCard(idx) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const images = [
+      "https://upload.wikimedia.org/wikipedia/commons/f/f5/Tutankhamun_Egyptian_Museum.png",
+      "https://upload.wikimedia.org/wikipedia/commons/7/73/Egyptian_sphinx.png",
+      "https://upload.wikimedia.org/wikipedia/commons/c/c5/Nefertiti-bust.png",
+      "https://upload.wikimedia.org/wikipedia/commons/9/94/Maspero_Egyptian_head.png",
+      "https://upload.wikimedia.org/wikipedia/commons/9/99/AmenhotepIII_Statue.png",
+      "https://upload.wikimedia.org/wikipedia/commons/b/b5/Mummy_of_Seti_I.png",
+      "https://upload.wikimedia.org/wikipedia/commons/1/13/Horus%2C_Egyptian_God%2C_Museum.png",
+      "https://upload.wikimedia.org/wikipedia/commons/d/d7/Anubis_head_Egyptian.png",
+      "https://upload.wikimedia.org/wikipedia/commons/f/f4/Ramses_II_Statue.png",
+      "https://upload.wikimedia.org/wikipedia/commons/8/82/Ancient_Egyptian_Pharaoh_Mask.png"
+    ];
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <img src="${images[idx]}" alt="شخصية فرعونية">
+        </div>
+        <div class="card-face card-back">😀</div>
+      </div>
+    `;
+    card.onclick = () => flip(card, idx);
+    return card;
   }
-}
-
-function showResult(prize) {
-  const title = document.querySelector('.result-title');
-  const content = document.getElementById('resultContent');
-  if (prize.includes('No Entry Sign')) {
-    title.innerHTML='Pensive Face للأسف! Pensive Face';
-    title.style.color='#D4A574';
-    content.innerHTML=`<div style="color:#D4A574;font-size:1.3em;">${prize}</div>`;
-  } else {
-    title.innerHTML='Party Popper مبروك! Party Popper';
-    title.style.color='#8B4513';
-    content.innerHTML=`<div>${prize}</div>`;
+  // -- نهاية التعديل --
+  function flip(el, idx) {
+    if (!gameActive) return;
+    gameActive = false;
+    el.classList.add('pop');
+    playSound();
+    makeConfetti(el);
+    setTimeout(getPrize, 700);
   }
-  document.getElementById('remainingMsg').textContent='اضغط نسخ الشاشة Four Leaf Clover';
-  document.getElementById('resultModal').classList.add('active');
-}
-
-window.appCloseResult = function() {
-  document.getElementById('resultModal').classList.remove('active');
-  showScreen('loginScreen'); 
-  clearInputCells();
-  currentCode = null;
-  gameActive = false;
-};
-
-window.appClearPrizes = async function(){
-  const today = new Date().toISOString().split('T')[0];
-  await set(ref(database,'prizes/' + today), {});
-  showMsg('تم تصفير الجوائز لهذا اليوم', 'success');
-};
-
-// التنقل بين الخانات تلقائيًا
-document.addEventListener('DOMContentLoaded', function() {
-  let cells = document.querySelectorAll('.input-cell');
-  cells.forEach((cell, idx) => {
-    cell.addEventListener('input', function(){
-      if (this.value.length > 0 && idx < 5) cells[idx+1].focus();
-    });
-    cell.addEventListener('keydown', function(e){
-      if ((e.key === 'Backspace' || e.key === 'Delete') && this.value === '' && idx > 0) cells[idx-1].focus();
-    });
-    cell.addEventListener('paste', (e) => {
-      const paste = (e.clipboardData || window.clipboardData).getData('text');
-      if (/^\d{6}$/.test(paste)) {
-        e.preventDefault();
-        paste.split('').forEach((val, k) => { if (cells[k]) cells[k].value = val; });
-        cells[5].focus();
-      }
+  function getPrize() {
+    const win = Math.random() * 100;
+    let prize;
+    if (win < 30) {
+      prize = PRIZES[Math.floor(Math.random() * PRIZES.length)];
+    } else {
+      prize = '🚫 للأسف لم تحالفك الحظ';
+    }
+    codes[currentCode].used = true;
+    codes[currentCode].prize = prize;
+    saveCodes();
+    showResult(prize);
+  }
+  function playSound() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.setValueAtTime(800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.1);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.1);
+    } catch(e) {}
+  }
+  function makeConfetti(el) {
+    const r = el.getBoundingClientRect();
+    const x = r.left + r.width / 2;
+    const y = r.top + r.height / 2;
+    for (let i = 0; i < 30; i++) {
+      const conf = document.createElement('div');
+      conf.className = 'confetti';
+      conf.textContent = ['🎉', '🎊', '⭐', '✨', '👑', '🏆'][i % 6];
+      conf.style.left = x + 'px';
+      conf.style.top = y + 'px';
+      conf.style.fontSize = '1.8em';
+      document.body.appendChild(conf);
+      const angle = (Math.PI * 2 * i) / 30;
+      const velocity = 7 + Math.random() * 5;
+      let vx = Math.cos(angle) * velocity;
+      let vy = Math.sin(angle) * velocity - 7;
+      let px = x;
+      let py = y;
+      let vy2 = vy;
+      const anim = () => {
+        px += vx;
+        py += vy2;
+        vy2 += 0.2;
+        conf.style.left = px + 'px';
+        conf.style.top = py + 'px';
+        conf.style.opacity = 1 - (py - y) / 300;
+        if (py - y < 300) requestAnimationFrame(anim);
+        else conf.remove();
+      };
+      anim();
+    }
+  }
+  function showResult(prize) {
+    const title = document.querySelector('.result-title');
+    const content = document.getElementById('resultContent');
+    if (prize.includes('للأسف')) {
+      title.innerHTML = '😔 للأسف!';
+      title.style.color = '#D4A574';
+      content.innerHTML = prize;
+    } else {
+      title.innerHTML = '🎉 مبروك! 🎉';
+      title.style.color = '#8B4513';
+      content.innerHTML = prize;
+    }
+    document.getElementById('resultModal').classList.add('active');
+  }
+  window.appCloseResult = function() {
+    document.getElementById('resultModal').classList.remove('active');
+    showScreen('loginScreen');
+    clearInputCells();
+    currentCode = null;
+    gameActive = false;
+  };
+  // معالجة إدخال الأرقام
+  document.addEventListener('DOMContentLoaded', function() {
+    let cells = document.querySelectorAll('.input-cell');
+    cells.forEach((cell, idx) => {
+      cell.addEventListener('input', function() {
+        if (this.value.length > 0 && idx < 5) {
+          cells[idx + 1].focus();
+        }
+      });
+      cell.addEventListener('keydown', function(e) {
+        if ((e.key === 'Backspace' || e.key === 'Delete') && this.value === '' && idx > 0) {
+          cells[idx - 1].focus();
+        }
+      });
+      cell.addEventListener('paste', (e) => {
+        const paste = (e.clipboardData || window.clipboardData).getData('text');
+        if (/^\d{6}$/.test(paste)) {
+          e.preventDefault();
+          paste.split('').forEach((val, k) => {
+            if (cells[k]) cells[k].value = val;
+          });
+          cells[5].focus();
+        }
+      });
     });
   });
-});
 </script>
 </body>
 </html>
