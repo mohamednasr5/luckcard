@@ -617,33 +617,39 @@
     }
     container.appendChild(row);
   }
-  // -- تعديل الجزء الخاص بالكروت فقط ليعرض صور فرعونية لكل كارت --
-  function createCard(idx) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    const images = [
-      "https://upload.wikimedia.org/wikipedia/commons/f/f5/Tutankhamun_Egyptian_Museum.png",
-      "https://upload.wikimedia.org/wikipedia/commons/7/73/Egyptian_sphinx.png",
-      "https://upload.wikimedia.org/wikipedia/commons/c/c5/Nefertiti-bust.png",
-      "https://upload.wikimedia.org/wikipedia/commons/9/94/Maspero_Egyptian_head.png",
-      "https://upload.wikimedia.org/wikipedia/commons/9/99/AmenhotepIII_Statue.png",
-      "https://upload.wikimedia.org/wikipedia/commons/b/b5/Mummy_of_Seti_I.png",
-      "https://upload.wikimedia.org/wikipedia/commons/1/13/Horus%2C_Egyptian_God%2C_Museum.png",
-      "https://upload.wikimedia.org/wikipedia/commons/d/d7/Anubis_head_Egyptian.png",
-      "https://upload.wikimedia.org/wikipedia/commons/f/f4/Ramses_II_Statue.png",
-      "https://upload.wikimedia.org/wikipedia/commons/8/82/Ancient_Egyptian_Pharaoh_Mask.png"
-    ];
-    card.innerHTML = `
-      <div class="card-inner">
-        <div class="card-face card-front">
-          <img src="${images[idx]}" alt="شخصية فرعونية">
-        </div>
-        <div class="card-face card-back">😀</div>
+ // -- تعديل الجزء الخاص بالكروت فقط ليعرض صور فرعونية لكل كارت --
+function createCard(idx) {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  // روابط الصور من GitHub مباشرة (raw links)
+  const images = [
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/01.png",
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/02.png",
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/03.png",
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/04.png",
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/05.png",
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/06.png",
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/07.png",
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/08.png",
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/09.png",
+    "https://raw.githubusercontent.com/mohamednasr5/luckcard/main/010.png"
+  ];
+
+  // بناء الكارت بالصور
+  card.innerHTML = `
+    <div class="card-inner">
+      <div class="card-face card-front">
+        <img src="${images[idx % images.length]}" alt="صورة فرعونية" loading="lazy">
       </div>
-    `;
-    card.onclick = () => flip(card, idx);
-    return card;
-  }
+      <div class="card-face card-back">😀</div>
+    </div>
+  `;
+
+  card.onclick = () => flip(card, idx);
+  return card;
+}
+
   // -- نهاية التعديل --
   function flip(el, idx) {
     if (!gameActive) return;
@@ -763,3 +769,4 @@
 </script>
 </body>
 </html>
+
