@@ -2,10 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>شوف حظك من مهندس محمد حماد</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
+    *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#FFF9E6,#FFEDD5);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px;}
     .container{max-width:1100px;width:100%;}
     .screen{display:none;text-align:center;padding:60px 18px;background:#FFFBE6;border-radius:17px;border:8px solid #8B7355;margin:18px auto;box-shadow:0 15px 46px #0001;}
@@ -45,9 +46,8 @@
     .card-face{width:100%;height:100%;position:absolute;border-radius:12px;box-shadow:0 10px 20px #0003,0 2px 5px #0001;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;font-size:2.6em;font-weight:bold;border:3px solid #A0826D;}
     .card-front{background:linear-gradient(135deg,#FFE4B5,#F5DEB3);color:#6B3410;}
     .card-back{background:#fff;transform:rotateY(180deg);background-size:cover;background-position:center;}
-    .copy-btn{background:#FFF8DC;border:1px solid #8B7355;color:#8B4513;cursor:pointer;border-radius:5px;font-size:1.16em;margin-right:8px;padding:2px 9px;transition:.15s;}
+    .copy-btn{background:#FFF8DC;border:1px solid #8B7355;color:#8B4513;cursor:pointer;border-radius:5px;font-size:1.16em;margin-right:8px;padding:2px 9px;}
     .copy-btn:hover{background:#FFD36E;}
-    .copied-msg{color:#5e4b1a;font-size:.98em;}
     .result-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:1000;}
     .result-modal.active{display:flex;}
     .result-box{background:linear-gradient(to bottom,#FFFBE6,#FFFACD);border-radius:11px;border:10px solid #8B7355;padding:45px 20px;box-shadow:0 20px 40px #0002;max-width:430px;width:97%;}
@@ -69,9 +69,9 @@
 <body>
 <div class="container">
 <div class="screen active" id="loginScreen">
-  <div class="logo-icon">🏛️</div>
+  <div class="logo-icon">Pyramid</div>
   <div class="logo">شوف حظك</div>
-  <div class="subtitle">🏺 الحظ الفرعوني المصري 🏺</div>
+  <div class="subtitle">Urn الحظ الفرعوني المصري Urn</div>
   <div style="font-size:1.2em;margin:14px 0;color:#8B4513;font-weight:600;">مهندس محمد حماد</div>
   <div class="input-group">
     <label>أدخل الرمز السري (6 أرقام)</label>
@@ -85,11 +85,12 @@
     </div>
     <div class="error" id="error"></div>
   </div>
-  <button class="btn" onclick="appLogin()">⚜️ دخول اللعبة ⚜️</button>
-  <button class="btn admin-btn" onclick="appShowAdmin()">🔐 لوحة التحكم</button>
+  <button class="btn" onclick="appLogin()">Fleur-de-lis دخول اللعبة Fleur-de-lis</button>
+  <button class="btn admin-btn" onclick="appShowAdmin()">Lock لوحة التحكم</button>
 </div>
+
 <div class="screen" id="adminLoginScreen">
-  <div class="logo">🔐 لوحة التحكم</div>
+  <div class="logo">Lock لوحة التحكم</div>
   <div class="subtitle">أدخل كلمة السر</div>
   <div class="input-group">
     <input type="password" id="adminPassword" placeholder="كلمة السر">
@@ -98,8 +99,9 @@
   <button class="btn" onclick="appCheckAdmin()">دخول</button>
   <button class="btn admin-btn" onclick="appBack()">رجوع</button>
 </div>
+
 <div class="screen" id="adminScreen">
-  <div class="logo">🔐 لوحة التحكم الإدارية</div>
+  <div class="logo">Lock لوحة التحكم الإدارية</div>
   <div class="admin-codes-list">
     <h3>الأكواد (<span id="codesCount">0</span>)</h3>
     <div class="codes-grid" id="currentCodesList"></div>
@@ -109,32 +111,35 @@
     <textarea id="codesTextarea"></textarea>
   </div>
   <div class="btn-group">
-    <button class="btn btn-small" onclick="appUpdateCodes()">💾 حفظ</button>
-    <button class="btn btn-small admin-btn" onclick="appGenerateCodes()">🎲 توليد</button>
-    <button class="btn btn-small danger-btn" onclick="appClearPrizes()">🔄 بدء اليوم من جديد</button>
-    <button class="btn btn-small danger-btn" onclick="appBack()">🚪 خروج</button>
+    <button class="btn btn-small" onclick="appUpdateCodes()">Save حفظ</button>
+    <button class="btn btn-small admin-btn" onclick="appGenerateCodes()">Dice توليد</button>
+    <button class="btn btn-small danger-btn" onclick="appClearPrizes()">Reset بدء اليوم من جديد</button>
+    <button class="btn btn-small danger-btn" onclick="appBack()">Exit خروج</button>
   </div>
   <div id="successMessage"></div>
 </div>
+
 <div class="screen" id="gameScreen">
-  <div class="game-title">🏺 اختر واحدة من الكروت العشرة 🏺</div>
+  <div class="game-title">Urn اختر واحدة من الكروت العشرة Urn</div>
   <div class="user-code">رمزك: <span id="displayCode"></span></div>
   <div class="clock" id="clock">00:00:00</div>
   <div class="balloons-container" id="balloonsContainer"></div>
 </div>
 </div>
+
 <div class="result-modal" id="resultModal">
   <div class="result-box">
-    <div class="result-title">🎊 مبروك! 🎊</div>
+    <div class="result-title">Party Popper مبروك! Party Popper</div>
     <div class="result-content" id="resultContent"></div>
     <div class="remaining-msg" id="remainingMsg"></div>
     <button class="btn" onclick="appCloseResult()">حسناً</button>
   </div>
 </div>
+
+<!-- Firebase SDK -->
 <script type="module">
-// Firebase config & SDK
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getDatabase, ref, set, get, update, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { getDatabase, ref, set, get, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCT1XU0_I1iez8Vu7bCgggfZpXTF3pzAtE",
@@ -145,17 +150,18 @@ const firebaseConfig = {
   messagingSenderId: "328528405451",
   appId: "1:328528405451:web:e4a46205036e70e60d0c4e"
 };
+
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 const ADMIN_PASS = '521988';
-const PRIZES = ['سيشن حصري 🎙️', 'أغنية 🎵', 'سيشن + أغنية 🎤🎵'];
+const PRIZES = ['سيشن حصري Microphone', 'أغنية Musical Note', 'سيشن + أغنية Microphone Musical Note'];
 const CARD_IMAGES = [
   "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3BhZ2VzL3JtLzEzL3Jhd3BpeGVsX3BuZ19waGFyYW9oX2FkdWx0X3doaXRlX2JhY2tncm91bmRfcmVwcmVzZW50YXRpb25fZDM5YzI1OTA2LThlYTUtNDBhMy1iNjc2LTdlMTg2ODYzZGIwNS5wbmc.png",
   "https://freesvg.org/img/cleopatra.png",
   "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzEwLzEwMTMxMjQwLmpwZw.jpg",
   "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzEwLzEwMTMyOTAzLmpwZw.jpg",
-  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3BhZ2VzL3JtLzI4L3Jhd3BpeGVsX3BuZ19zcGhpbnxmaWxlLTUucG5n.png",
+  "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3BhZ2VzL3JtLzI4L3Jhd3BpeGVsX3BuZ19zcGhpbnhmaWxlLTUucG5n.png",
   "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzEwLzEwMTMxMjQwLmpwZw.jpg",
   "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzMwL3Jhd3BpeGVsX3BuZ19maWxlLTYwLnBuZw.png",
   "https://images.rawpixel.com/image_300/czNmcy1wcml2YXRlL3JtLzMyL3Jhd3BpeGVsX3BuZ19yZWxpZXZfR2FybGFuZC1mZS5wbmc.png",
@@ -166,96 +172,173 @@ const CARD_IMAGES = [
 let currentCode = null;
 let gameActive = false;
 
-// Firebase helpers
+// دالة جلب الأكواد مع تنظيف المفاتيح
 async function getCodes() {
   const codesRef = ref(database, 'gameCodes');
   const snapshot = await get(codesRef);
-  return snapshot.exists() ? snapshot.val() : {};
+  if (!snapshot.exists()) return {};
+  
+  const data = snapshot.val();
+  const codes = {};
+  
+  Object.keys(data).forEach(key => {
+    const cleanKey = String(key).trim();
+    codes[cleanKey] = {
+      used: !!data[key].used,
+      prize: data[key].prize || null,
+      date: data[key].date || null
+    };
+  });
+  
+  return codes;
 }
+
+// دالة حفظ الأكواد مع تنظيف
 async function saveCodes(codes) {
   const codesRef = ref(database, 'gameCodes');
-  await set(codesRef, codes);
+  const cleanCodes = {};
+  
+  Object.keys(codes).forEach(key => {
+    const k = String(key).trim();
+    cleanCodes[k] = {
+      used: !!codes[key].used,
+      prize: codes[key].prize || null,
+      date: codes[key].date || null
+    };
+  });
+  
+  await set(codesRef, cleanCodes);
 }
+
+// عرض الأكواد في لوحة التحكم
 async function displayCodes() {
   const codes = await getCodes();
   const list = document.getElementById('currentCodesList');
+  const countEl = document.getElementById('codesCount');
+  
   const arr = Object.entries(codes);
-  document.getElementById('codesCount').textContent = arr.length;
+  countEl.textContent = arr.length;
+
+  if (arr.length === 0) {
+    list.innerHTML = '<p style="color:#8B4513; text-align:center; padding:20px;">لا توجد أكواد حاليًا. أضف أكوادًا جديدة أو استخدم زر "توليد"</p>';
+    return;
+  }
+
   list.innerHTML = '';
-  arr.forEach(([code, data], idx) => {
-    const result = data.used ? (data.prize || '✅ استخدم') : '❓ جديد';
+  arr.forEach(([code, data]) => {
+    const result = data.used ? (data.prize || 'استخدم') : 'جديد';
     const item = document.createElement('div');
     item.className = 'code-item';
     item.innerHTML = `
       <span class="code-text">${code}</span>
-      <button class="copy-btn" onclick="copyCode(this,'${code}')">نسخ</button>
+      <button class="copy-btn" onclick="copyCode('${code}')">نسخ</button>
       <span class="code-result">${result}</span>
     `;
     list.appendChild(item);
   });
 }
-window.copyCode = function(btn, code) {
+
+// دوال التحكم
+window.copyCode = function(code) {
   const txt = `كودك في اللعبة هو: ${code}`;
-  navigator.clipboard.writeText(txt).then(() =>{
-    btn.style.display='none';
-    let msg = document.createElement('span'); msg.className='copied-msg'; msg.textContent='منسوخ!';
-    btn.parentNode.insertBefore(msg, btn.nextSibling);
-    setTimeout(()=>{msg.remove();btn.style.display='inline-block';},1800);
-  });
+  navigator.clipboard.writeText(txt).then(() => showMsg('تم نسخ الكود!', 'success'));
 };
-window.appShowAdmin = function() { document.getElementById('adminPassword').value=''; document.getElementById('adminError').textContent=''; showScreen('adminLoginScreen'); };
+
+window.appShowAdmin = function() { 
+  document.getElementById('adminPassword').value = ''; 
+  document.getElementById('adminError').textContent = ''; 
+  showScreen('adminLoginScreen'); 
+};
+
 window.appCheckAdmin = async function() {
   const pass = document.getElementById('adminPassword').value;
   if (pass === ADMIN_PASS) {
     document.getElementById('adminError').textContent = '';
-    await displayCodes(); showScreen('adminScreen');
+    await displayCodes(); 
+    showScreen('adminScreen');
   } else {
     document.getElementById('adminError').textContent = 'كلمة السر غير صحيحة';
   }
 };
+
 window.appBack = function() { showScreen('loginScreen'); clearInputCells(); };
+
 window.appUpdateCodes = async function() {
   const txt = document.getElementById('codesTextarea').value;
   const arr = txt.split('\n').map(c => c.trim()).filter(c => /^\d{6}$/.test(c));
-  if (arr.length === 0) { showMsg('أدخل أكواد صحيحة', 'error'); return; }
+  if (arr.length === 0) { showMsg('أدخل أكواد صحيحة (6 أرقام)', 'error'); return; }
   const unique = [...new Set(arr)];
   if (unique.length !== arr.length) { showMsg('توجد أكواد مكررة', 'error'); return; }
-  const codes = {}; unique.forEach(c => { codes[c] = { used: false, prize: null, date: null }; });
-  await saveCodes(codes); await displayCodes(); document.getElementById('codesTextarea').value='';
+  
+  const codes = {}; 
+  unique.forEach(c => { codes[c] = { used: false, prize: null, date: null }; });
+  await saveCodes(codes); 
+  await displayCodes(); 
+  document.getElementById('codesTextarea').value = '';
   showMsg(`تم حفظ ${unique.length} كود`, 'success');
 };
+
 window.appGenerateCodes = async function() {
   const codes = {};
-  for (let i = 0; i < 32; i++) { codes[Math.floor(Math.random() * 900000 + 100000)] = { used: false, prize: null, date: null }; }
-  await saveCodes(codes); await displayCodes(); showMsg('تم توليد أكواد جديدة', 'success');
+  for (let i = 0; i < 32; i++) { 
+    const code = String(Math.floor(Math.random() * 900000 + 100000));
+    codes[code] = { used: false, prize: null, date: null }; 
+  }
+  await saveCodes(codes); 
+  await displayCodes(); 
+  showMsg('تم توليد 32 كود جديد', 'success');
 };
+
 function showMsg(text, type) {
   const el = document.getElementById('successMessage');
   el.innerHTML = `<div class="${type}">${text}</div>`;
-  setTimeout(() => { el.innerHTML = ''; }, 2200);
+  setTimeout(() => { el.innerHTML = ''; }, 2500);
 }
-function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));  document.getElementById(id).classList.add('active'); }
-function clearInputCells() { document.querySelectorAll('.input-cell').forEach(cell => cell.value=''); document.getElementById('error').textContent = ''; }
+
+function showScreen(id) { 
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); 
+  document.getElementById(id).classList.add('active'); 
+}
+
+function clearInputCells() { 
+  document.querySelectorAll('.input-cell').forEach(cell => cell.value=''); 
+  document.getElementById('error').textContent = ''; 
+}
+
+// تسجيل الدخول - المُصحح
 window.appLogin = async function() {
   let cells = Array.from(document.querySelectorAll('.input-cell'));
-  let code = cells.map(c => c.value).join('');
+  let inputCode = cells.map(c => c.value.trim()).join('');
   let err = document.getElementById('error');
   err.textContent = '';
-  if (!/^\d{6}$/.test(code)) {
-    err.textContent = 'يجب إدخال 6 أرقام في الخانات';
+
+  if (!/^\d{6}$/.test(inputCode)) {
+    err.textContent = 'يجب إدخال 6 أرقام بالضبط';
     return;
   }
-  const codes = await getCodes();
-  if (!codes[code]) {
-    err.textContent = 'الرمز غير صحيح';
-    return;
+
+  try {
+    const codes = await getCodes();
+    const code = String(inputCode);
+
+    if (!codes[code]) {
+      err.textContent = 'الرمز غير صحيح أو غير موجود';
+      return;
+    }
+    if (codes[code].used) {
+      err.textContent = 'الرمز مستخدم من قبل';
+      return;
+    }
+
+    currentCode = code;
+    startGame();
+
+  } catch (error) {
+    console.error("خطأ في الاتصال:", error);
+    err.textContent = 'خطأ في الاتصال، حاول مرة أخرى';
   }
-  if (codes[code].used) {
-    err.textContent = 'أنت خسرت واستني المسابقة القادمة';
-    return;
-  }
-  currentCode = code; startGame();
 };
+
 function startGame() {
   showScreen('gameScreen');
   document.getElementById('displayCode').textContent = currentCode;
@@ -264,17 +347,23 @@ function startGame() {
   setInterval(updateClock, 1000);
   gameActive = true;
 }
+
 function updateClock() {
   const n = new Date();
-  document.getElementById('clock').textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0') + ':' + String(n.getSeconds()).padStart(2,'0');
+  document.getElementById('clock').textContent = 
+    String(n.getHours()).padStart(2,'0') + ':' + 
+    String(n.getMinutes()).padStart(2,'0') + ':' + 
+    String(n.getSeconds()).padStart(2,'0');
 }
+
 function renderCards() {
   const c = document.getElementById('balloonsContainer'); c.innerHTML = '';
-  const suits = ['♠','♥','♦','♣'];
+  const suits = ['Spade Suit','Heart Suit','Diamond Suit','Club Suit'];
   const cardsRow = document.createElement('div'); cardsRow.className = 'cards-row';
   for (let i = 0; i < 10; i++) cardsRow.appendChild(createCard(i, suits));
   c.appendChild(cardsRow);
 }
+
 function createCard(idx, suits) {
   const card = document.createElement('div');
   card.className = 'card';
@@ -286,6 +375,7 @@ function createCard(idx, suits) {
   card.onclick = () => flip(card, idx);
   return card;
 }
+
 function flip(el, idx) {
   if (!gameActive) return;
   gameActive = false;
@@ -294,13 +384,15 @@ function flip(el, idx) {
   makeConfetti(el);
   setTimeout(getPrize, 700);
 }
+
 async function getPrize() {
   const win = Math.random() * 100;
   let prize;
   let today = new Date().toISOString().split('T')[0];
-  // جوائز محفوظة يوميا
   const prizesRef = ref(database, 'prizes/' + today);
-  let snap = await get(prizesRef); let usedPrizes = snap.exists() ? snap.val() : {};
+  let snap = await get(prizesRef); 
+  let usedPrizes = snap.exists() ? snap.val() : {};
+
   if (win < 30) {
     let available = PRIZES.filter((p, i) => !usedPrizes[i]);
     if (available.length) {
@@ -309,11 +401,12 @@ async function getPrize() {
       usedPrizes[PRIZES.indexOf(prize)] = true;
       await set(prizesRef, usedPrizes);
     } else {
-      prize = '❌ حظ أوفر 🍀';
+      prize = 'No Entry Sign حظ أوفر Four Leaf Clover';
     }
   } else {
-    prize = '❌ حظ أوفر 🍀';
+    prize = 'No Entry Sign حظ أوفر Four Leaf Clover';
   }
+
   const codes = await getCodes();
   codes[currentCode].used = true;
   codes[currentCode].prize = prize;
@@ -321,6 +414,7 @@ async function getPrize() {
   await saveCodes(codes);
   showResult(prize);
 }
+
 function playSound() {
   try {
     const c = new (window.AudioContext||window.webkitAudioContext)(),t=c.currentTime;
@@ -331,44 +425,51 @@ function playSound() {
     o.start(t);o.stop(t+.1);
   } catch{}
 }
+
 function makeConfetti(el) {
   const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
   for (let i = 0; i < 30; i++) {
     const conf=document.createElement('div');
     conf.className='confetti';
-    conf.textContent=['🎉','🎊','⭐','✨','👑','🏆'][i%6];
+    conf.textContent=['Party Popper','Party Popper','Star','Sparkles','Crown','Trophy'][i%6];
     conf.style.left=x+'px';conf.style.top=y+'px';conf.style.fontSize='1.8em';
     document.body.appendChild(conf);
     let a=(Math.PI*2*i)/30,v=7+Math.random()*5,vx=Math.cos(a)*v,vy=Math.sin(a)*v-7,px=x,py=y,vy2=vy;
     (function anim(){px+=vx;py+=vy2;vy2+=.2;conf.style.left=px+'px';conf.style.top=py+'px';conf.style.opacity=1-(py-y)/300;if(py-y<300)requestAnimationFrame(anim);else conf.remove();})();
   }
 }
+
 function showResult(prize) {
-  const title=document.querySelector('.result-title');
-  const content=document.getElementById('resultContent');
-  if (prize.indexOf('❌')===0) {
-    title.innerHTML='😔 للأسف! 😔';
+  const title = document.querySelector('.result-title');
+  const content = document.getElementById('resultContent');
+  if (prize.includes('No Entry Sign')) {
+    title.innerHTML='Pensive Face للأسف! Pensive Face';
     title.style.color='#D4A574';
     content.innerHTML=`<div style="color:#D4A574;font-size:1.3em;">${prize}</div>`;
   } else {
-    title.innerHTML='🎊 مبروك! 🎊';
+    title.innerHTML='Party Popper مبروك! Party Popper';
     title.style.color='#8B4513';
     content.innerHTML=`<div>${prize}</div>`;
   }
-  document.getElementById('remainingMsg').textContent='اضغط نسخ الشاشة 🍀';
+  document.getElementById('remainingMsg').textContent='اضغط نسخ الشاشة Four Leaf Clover';
   document.getElementById('resultModal').classList.add('active');
 }
+
 window.appCloseResult = function() {
   document.getElementById('resultModal').classList.remove('active');
-  showScreen('loginScreen'); clearInputCells();
+  showScreen('loginScreen'); 
+  clearInputCells();
   currentCode = null;
+  gameActive = false;
 };
+
 window.appClearPrizes = async function(){
   const today = new Date().toISOString().split('T')[0];
   await set(ref(database,'prizes/' + today), {});
   showMsg('تم تصفير الجوائز لهذا اليوم', 'success');
 };
-// تنقل تلقائي بين الخانات
+
+// التنقل بين الخانات تلقائيًا
 document.addEventListener('DOMContentLoaded', function() {
   let cells = document.querySelectorAll('.input-cell');
   cells.forEach((cell, idx) => {
