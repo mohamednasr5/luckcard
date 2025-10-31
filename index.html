@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شوف حظك من مهندس محمد حماد</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFEDD5 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: url('https://images.unsplash.com/photo-1569163139394-de4798aa62b3?w=1500&q=80') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: url('https://images.unsplash.com/photo-1569163139394-de4798aa62b3?w=1500&q=80') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .screen {
+            background: linear-gradient(to bottom, #FFF8DC 0%, #FFFACD 100%);
+            border-radius: 0;
+            padding: 50px 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+            display: none;
+            border: 15px solid;
+            border-image: url('https://images.unsplash.com/photo-1578926078328-123456789012?w=100') 15 stretch;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('https://images.unsplash.com/photo-1569163139394-de4798aa62b3?w=1000&q=80') repeat-x;
+            background-size: auto 100px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        .screen::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('https://images.unsplash.com/photo-1569163139394-de4798aa62b3?w=1000&q=80') repeat-x;
+            background-size: auto 100px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .screen-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo-section {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo-icon {
+            font-size: 4em;
+            margin: 20px 0;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        .logo {
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #8B4513;
+            text-shadow: 3px 3px 0px rgba(212,165,116,0.5);
+            margin: 10px 0;
+            font-family: serif;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            color: #6B3410;
+            font-size: 1em;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            padding: 15px;
+            border-top: 3px solid #D4A574;
+            border-bottom: 3px solid #D4A574;
+            background: rgba(212,165,116,0.1);
+        }
+        
+        .decorative-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            font-size: 1.5em;
+        }
+        
+        .decorative-line::before,
+        .decorative-line::after {
+            content: '⚜️';
+            font-size: 1.2em;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #8B4513;
+            font-weight: 700;
+            font-size: 1.1em;
+            text-shadow: 1px 1px 0px rgba(212,165,116,0.5);
+        }
+        
+        .input-group input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #8B4513;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            text-align: center;
+            font-family: 'Cairo', Arial;
+            background: white;
+            color: #333;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .input-group input:focus, textarea:focus {
+            outline: none;
+            border-color: #D4A574;
+            box-shadow: 0 0 15px rgba(212,165,116,0.5), inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #D4A574 0%, #8B7355 50%, #D4A574 100%);
+            color: #FFF8DC;
+            border: 3px solid #8B4513;
+            border-radius: 8px;
+            font-size: 1.15em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139,69,19,0.4);
+            background: linear-gradient(135deg, #E8C4A0 0%, #A0826D 50%, #E8C4A0 100%);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .error {
+            color: #8B0000;
+            margin-top: 10px;
+            font-size: 0.95em;
+            font-weight: 700;
+        }
+        
+        .success {
+            color: #654321;
+            margin-top: 10px;
+            font-size: 0.95em;
+            font-weight: 700;
+        }
+        
+        .admin-btn {
+            background: linear-gradient(135deg, #B8860B 0%, #8B6914 100%);
+            border-color: #6B5D0F;
+        }
+        
+        .admin-btn:hover {
+            box-shadow: 0 8px 25px rgba(184,134,11,0.4);
+        }
+        
+        .danger-btn {
+            background: linear-gradient(135deg, #CD5C5C 0%, #8B3A3A 100%);
+            border-color: #6B2C2C;
+        }
+        
+        .danger-btn:hover {
+            box-shadow: 0 8px 25px rgba(205,92,92,0.4);
+        }
+        
+        .game-header {
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, rgba(212,165,116,0.2), rgba(245,222,179,0.2));
+            padding: 30px;
+            border-radius: 8px;
+            border: 3px solid #D4A574;
+            position: relative;
+            z-index: 3;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+        }
+        
+        .game-title {
+            font-size: 2.8em;
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(212,165,116,0.5);
+            font-family: serif;
+        }
+        
+        .user-code {
+            font-size: 1.3em;
+            color: #6B3410;
+            font-weight: 700;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 5px;
+        }
+        
+        .clock {
+            font-size: 1.3em;
+            color: #8B4513;
+            font-weight: bold;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            background: rgba(212,165,116,0.2);
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .balloons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(255,248,220,0.9), rgba(245,222,179,0.9));
+            border-radius: 8px;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            border: 5px dashed #D4A574;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 3;
+        }
+        
+        .cards-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            width: 85px;
+            height: 115px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: scale(1.08);
+        }
+        
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .card-face {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 2.5em;
+            font-weight: bold;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3), inset 0 0 10px rgba(0,0,0,0.1);
+            border: 3px solid;
+            transition: transform 0.2s;
+        }
+        
+        .card-face:hover {
+            transform: scale(1.05);
+        }
+        
+        .card-front {
+            background: linear-gradient(135deg, #D4A574 0%, #8B7355 100%);
+            color: #FFF8DC;
+            border-color: #6B5D4F;
+            background-image: url('https://www.transparenttextures.com/patterns/papyrus.png');
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .card-front::before {
+            content: '⚜️';
+            font-size: 1.8em;
+        }
+        
+        .card-back {
+            background: white;
+            color: #8B4513;
+            border-color: #D4A574;
+            font-size: 1.8em;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card.pop .card-inner {
+            animation: cardPop 0.6s ease-out forwards;
+        }
+        
+        @keyframes cardPop {
+            0% {
+                transform: rotateY(0deg) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: rotateY(180deg) scale(1.2);
+            }
+            100% {
+                transform: rotateY(180deg) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1.8em;
+            z-index: 999;
+        }
+        
+        .result-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .result-modal.active {
+            display: flex;
+        }
+        
+        .result-box {
+            background: linear-gradient(to bottom, #FFF8DC 0%, #FFFACD 100%);
+            padding: 50px 40px;
+            border-radius: 8px;
+            text-align: center;
+            animation: popIn 0.5s ease-out;
+            max-width: 500px;
+            border: 10px solid #8B7355;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+        
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .result-title {
+            font-size: 2.3em;
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(212,165,116,0.5);
+        }
+        
+        .result-content {
+            font-size: 1.4em;
+            color: #6B3410;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            font-weight: 700;
+            padding: 20px;
+            background: rgba(212,165,116,0.1);
+            border-radius: 5px;
+        }
+        
+        .result-content .prize {
+            color: #8B4513;
+            font-weight: bold;
+            font-size: 1.3em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .remaining-msg {
+            color: #8B4513;
+            font-size: 1.05em;
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(212,165,116,0.3), rgba(245,222,179,0.3));
+            border-radius: 5px;
+            border: 2px solid #D4A574;
+            font-weight: 600;
+        }
+        
+        .btn-close {
+            background: linear-gradient(135deg, #D4A574 0%, #8B7355 100%);
+            margin-top: 20px;
+        }
+        
+        .admin-codes-list {
+            background: linear-gradient(135deg, rgba(212,165,116,0.2), rgba(245,222,179,0.2));
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            text-align: right;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 3px solid #D4A574;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .admin-codes-list h3 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+        
+        .codes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .code-item {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #D4A574;
+            font-family: monospace;
+            font-weight: bold;
+            color: #8B4513;
+            word-break: break-all;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .code-text {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 8px;
+        }
+        
+        .code-result {
+            font-size: 0.85em;
+            color: #6B3410;
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px solid #D4A574;
+            width: 100%;
+            min-height: 20px;
+            font-style: italic;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .btn-small {
+            padding: 12px 20px;
+            font-size: 0.95em;
+            margin-right: 10px;
+            margin-top: 10px;
+            width: auto;
+            display: inline-block;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, rgba(212,165,116,0.3), rgba(245,222,179,0.3));
+            padding: 20px;
+            border-radius: 8px;
+            color: #8B4513;
+            margin: 20px 0;
+            text-align: right;
+            border: 2px solid #D4A574;
+            font-weight: 600;
+            position: relative;
+            z-index: 3;
+        }
+        
+        @media (max-width: 600px) {
+            .screen {
+                padding: 30px 20px;
+            }
+            
+            .logo {
+                font-size: 2em;
+            }
+            
+            .game-title {
+                font-size: 1.8em;
+            }
+            
+            .clock {
+                font-size: 1.1em;
+            }
+            
+            .balloons-container {
+                padding: 25px 15px;
+                gap: 25px;
+            }
+            
+            .cards-row {
+                gap: 12px;
+            }
+            
+            .card {
+                width: 70px;
+                height: 95px;
+            }
+            
+            .card-face {
+                font-size: 2em;
+            }
+            
+            .codes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn-small {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .card {
+                width: 60px;
+                height: 80px;
+            }
+            
+            .card-face {
+                font-size: 1.5em;
+                border: 2px solid;
+            }
+            
+            .balloons-container {
+                padding: 15px 10px;
+                gap: 15px;
+            }
+            
+            .cards-row {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div class="screen active" id="loginScreen">
+            <div class="screen-content">
+                <div class="logo-section">
+                    <div class="logo-icon">🏛️</div>
+                    <div class="logo">شوف حظك</div>
+                    <div class="subtitle">🏺 الحظ الفرعوني المصري 🏺</div>
+                </div>
+                
+                <div class="decorative-line">مهندس محمد حماد</div>
+                
+                <div class="input-group">
+                    <label for="codeInput">أدخل الرمز السري (6 أرقام)</label>
+                    <input 
+                        type="text" 
+                        id="codeInput" 
+                        placeholder="000000" 
+                        maxlength="6"
+                        inputmode="numeric"
+                    >
+                    <div class="error" id="error"></div>
+                </div>
+                <button class="btn" onclick="loginUser()">⚜️ دخول اللعبة ⚜️</button>
+                <button class="btn admin-btn" onclick="showAdminLoginScreen()" style="margin-top: 20px;">🔐 لوحة التحكم الإدارية</button>
+            </div>
+        </div>
+        
+        <!-- Admin Login Screen -->
+        <div class="screen" id="adminLoginScreen">
+            <div class="screen-content">
+                <div class="logo">🔐 لوحة التحكم الإدارية</div>
+                <div class="subtitle">أدخل كلمة السر</div>
+                <div class="input-group">
+                    <input 
+                        type="password" 
+                        id="adminPassword" 
+                        placeholder="كلمة السر"
+                    >
+                    <div class="error" id="adminError"></div>
+                </div>
+                <button class="btn" onclick="checkAdminPassword()">دخول</button>
+                <button class="btn admin-btn" onclick="backToLogin()" style="background: linear-gradient(135deg, #8B7355 0%, #6B5D4F 100%);">رجوع</button>
+            </div>
+        </div>
+        
+        <!-- Admin Screen -->
+        <div class="screen" id="adminScreen">
+            <div class="screen-content">
+                <div class="logo">🔐 لوحة التحكم الإدارية</div>
+                
+                <div class="admin-codes-list">
+                    <h3>الأكواد الحالية وما فاز به كل واحد (<span id="codesCount">0</span>):</h3>
+                    <div class="codes-grid" id="currentCodesList"></div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="codesTextarea">أدخل الأكواد الجديدة (كود في كل سطر)</label>
+                    <textarea id="codesTextarea" placeholder="أدخل الأكواد كل واحد في سطر جديد
+مثال:
+123456
+654321
+789456"></textarea>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-small" onclick="updateCodes()">💾 حفظ الأكواد</button>
+                    <button class="btn btn-small admin-btn" onclick="generateRandomCodes()">🎲 توليد أكواد عشوائية</button>
+                    <button class="btn btn-small" onclick="copyAllCodes()" style="background: linear-gradient(135deg, #16A085 0%, #117A65 100%); border-color: #0E5C4B;">📋 نسخ جميع الأكواد</button>
+                    <button class="btn btn-small danger-btn" onclick="backToLogin()">🚪 خروج</button>
+                </div>
+                
+                <div class="info-box">
+                    ℹ️ عند حفظ أو توليد أكواد جديدة، ستتحدث تلقائياً في صفحة الزائر
+                </div>
+                
+                <div id="successMessage"></div>
+            </div>
+        </div>
+        
+        <!-- Game Screen -->
+        <div class="screen" id="gameScreen">
+            <div class="screen-content">
+                <div class="game-header">
+                    <div class="game-title">🏺 اختر ورقة واحدة 🏺</div>
+                    <div class="user-code">رمزك: <span id="displayCode"></span></div>
+                    <div class="clock" id="clock">00:00:00</div>
+                </div>
+                <div class="balloons-container" id="balloonsContainer"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Result Modal -->
+    <div class="result-modal" id="resultModal">
+        <div class="result-box">
+            <div class="result-title">🎊 مبروك! 🎊</div>
+            <div class="result-content" id="resultContent"></div>
+            <div class="remaining-msg" id="remainingMsg"></div>
+            <button class="btn btn-close" onclick="closeResult()">حسناً</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // استيراد Firebase بالطريقة الحديثة (Modular SDK v9)
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, set, get, update, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+        // معلومات Firebase الخاصة بمشروعك
+        const firebaseConfig = {
+            apiKey: "AIzaSyCT1XU0_I1iez8Vu7bCgggfZpXTF3pzAtE",
+            authDomain: "game-luck-aa566.firebaseapp.com",
+            databaseURL: "https://game-luck-aa566-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "game-luck-aa566",
+            storageBucket: "game-luck-aa566.firebasestorage.app",
+            messagingSenderId: "328528405451",
+            appId: "1:328528405451:web:e4a46205036e70e60d0c4e",
+            measurementId: "G-2DFJ8XX1FS"
+        };
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        const ADMIN_PASSWORD = '521988';
+        const prizes = [
+            'سيشن حصري 🎙️',
+            'أغنية 🎵',
+            'سيشن + أغنية 🎤🎵'
+        ];
+        
+        let currentCode = null;
+        let gameActive = false;
+        
+        // تحميل الأكواد من Firebase
+        const loadCodesFromFirebase = () => {
+            const codesRef = ref(database, 'gameCodes');
+            onValue(codesRef, (snapshot) => {
+                if (!snapshot.exists()) {
+                    // إنشاء أكواد افتراضية
+                    const defaultCodes = generateDefaultCodes();
+                    set(codesRef, defaultCodes);
+                }
+            });
+        };
+        
+        const generateDefaultCodes = () => {
+            const codes = {};
+            const used = new Set();
+            let count = 0;
+            while (count < 32) {
+                const code = Math.floor(Math.random() * 900000 + 100000).toString();
+                if (!used.has(code)) {
+                    codes[code] = {
+                        used: false,
+                        prize: null,
+                        timestamp: null
+                    };
+                    used.add(code);
+                    count++;
+                }
+            }
+            return codes;
+        };
+        
+        const displayCurrentCodes = async () => {
+            const list = document.getElementById('currentCodesList');
+            const codesRef = ref(database, 'gameCodes');
+            
+            const snapshot = await get(codesRef);
+            if (snapshot.exists()) {
+                const codes = snapshot.val();
+                const codesArray = Object.keys(codes);
+                document.getElementById('codesCount').textContent = codesArray.length;
+                
+                list.innerHTML = '';
+                codesArray.forEach(code => {
+                    const codeData = codes[code];
+                    const item = document.createElement('div');
+                    item.className = 'code-item';
+                    
+                    let resultText = '❓ لم يُستخدم بعد';
+                    if (codeData.used) {
+                        resultText = codeData.prize || '✅ تم استخدامه';
+                    }
+                    
+                    const codeText = document.createElement('div');
+                    codeText.className = 'code-text';
+                    
+                    const codeSpan = document.createElement('span');
+                    codeSpan.textContent = code;
+                    
+                    const copyBtn = document.createElement('button');
+                    copyBtn.className = 'copy-btn-small';
+                    copyBtn.textContent = '📋';
+                    copyBtn.style.cssText = 'background: #D4A574; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;';
+                    copyBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        const textToCopy = `كودك فى المسابقة هو: ${code}`;
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                            copyBtn.textContent = '✅';
+                            setTimeout(() => {
+                                copyBtn.textContent = '📋';
+                            }, 2000);
+                        }).catch(() => {
+                            copyBtn.textContent = '❌';
+                            setTimeout(() => {
+                                copyBtn.textContent = '📋';
+                            }, 2000);
+                        });
+                    };
+                    
+                    codeText.appendChild(codeSpan);
+                    codeText.appendChild(copyBtn);
+                    
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'code-result';
+                    resultDiv.textContent = resultText;
+                    
+                    item.appendChild(codeText);
+                    item.appendChild(resultDiv);
+                    list.appendChild(item);
+                });
+            }
+        };
+        
+        const showScreen = (screenId) => {
+            document.querySelectorAll('.screen').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        };
+        
+        window.showAdminLoginScreen = () => {
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminError').textContent = '';
+            showScreen('adminLoginScreen');
+        };
+        
+        window.checkAdminPassword = () => {
+            const password = document.getElementById('adminPassword').value;
+            const errorEl = document.getElementById('adminError');
+            
+            if (password === ADMIN_PASSWORD) {
+                errorEl.textContent = '';
+                displayCurrentCodes();
+                showScreen('adminScreen');
+            } else {
+                errorEl.textContent = 'كلمة السر غير صحيحة';
+            }
+        };
+        
+        window.generateRandomCodes = async () => {
+            const newCodes = generateDefaultCodes();
+            const codesRef = ref(database, 'gameCodes');
+            await set(codesRef, newCodes);
+            
+            displayCurrentCodes();
+            showSuccessMessage(`تم توليد ${Object.keys(newCodes).length} كود عشوائي جديد! ✅`);
+        };
+        
+        window.updateCodes = async () => {
+            const textarea = document.getElementById('codesTextarea').value;
+            const newCodesArray = textarea.split('\n').map(c => c.trim()).filter(c => c.length === 6 && /^\d{6}$/.test(c));
+            
+            if (newCodesArray.length === 0) {
+                document.getElementById('successMessage').innerHTML = '<div class="error">الرجاء إدخال أكواد صحيحة (6 أرقام لكل كود)</div>';
+                return;
+            }
+            
+            const uniqueCodes = [...new Set(newCodesArray)];
+            if (uniqueCodes.length !== newCodesArray.length) {
+                document.getElementById('successMessage').innerHTML = '<div class="error">يوجد أكواد مكررة! الرجاء إدخال أكواد غير مكررة</div>';
+                return;
+            }
+            
+            const newCodes = {};
+            uniqueCodes.forEach(code => {
+                newCodes[code] = {
+                    used: false,
+                    prize: null,
+                    timestamp: null
+                };
+            });
+            
+            const codesRef = ref(database, 'gameCodes');
+            await set(codesRef, newCodes);
+            
+            displayCurrentCodes();
+            document.getElementById('codesTextarea').value = '';
+            showSuccessMessage(`تم تحديث ${uniqueCodes.length} كود بنجاح! ✅`);
+        };
+        
+        const showSuccessMessage = (message) => {
+            const successEl = document.getElementById('successMessage');
+            successEl.innerHTML = `<div class="success">${message}</div>`;
+            setTimeout(() => {
+                successEl.innerHTML = '';
+            }, 3000);
+        };
+        
+        window.copyAllCodes = async () => {
+            const codesRef = ref(database, 'gameCodes');
+            const snapshot = await get(codesRef);
+            
+            if (snapshot.exists()) {
+                const codes = Object.keys(snapshot.val());
+                const codesText = codes.map((code, index) => `${index + 1}. كودك فى المسابقة هو: ${code}`).join('\n');
+                
+                navigator.clipboard.writeText(codesText).then(() => {
+                    showSuccessMessage('تم نسخ جميع الأكواد! ✅');
+                }).catch(() => {
+                    showSuccessMessage('فشل النسخ ❌');
+                });
+            }
+        };
+        
+        window.backToLogin = () => {
+            showScreen('loginScreen');
+            document.getElementById('codeInput').value = '';
+        };
+        
+        window.loginUser = async () => {
+            const code = document.getElementById('codeInput').value.trim();
+            const errorEl = document.getElementById('error');
+            
+            errorEl.textContent = '';
+            
+            if (code.length !== 6 || !/^\d{6}$/.test(code)) {
+                errorEl.textContent = 'الرمز يجب أن يكون 6 أرقام صحيحة';
+                return;
+            }
+            
+            const codeRef = ref(database, `gameCodes/${code}`);
+            const snapshot = await get(codeRef);
+            
+            if (!snapshot.exists()) {
+                errorEl.textContent = 'أطلب رمزك من مهندس محمد حماد';
+                return;
+            }
+            
+            const codeData = snapshot.val();
+            if (codeData.used) {
+                errorEl.textContent = 'الرقم مستخدم يمكن إستخدامه مرة واحدة فقط';
+                return;
+            }
+            
+            currentCode = code;
+            startGame();
+        };
+        
+        const startGame = () => {
+            showScreen('gameScreen');
+            document.getElementById('displayCode').textContent = currentCode;
+            renderCards();
+            updateClock();
+            setInterval(updateClock, 1000);
+            gameActive = true;
+        };
+        
+        const updateClock = () => {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        };
+        
+        const renderCards = () => {
+            const container = document.getElementById('balloonsContainer');
+            container.innerHTML = '';
+            
+            const suits = ['♠', '♥', '♦', '♣'];
+            
+            const row1 = document.createElement('div');
+            row1.className = 'cards-row';
+            
+            for (let i = 0; i < 5; i++) {
+                const card = createCard(i, suits);
+                row1.appendChild(card);
+            }
+            
+            const row2 = document.createElement('div');
+            row2.className = 'cards-row';
+            
+            for (let i = 5; i < 10; i++) {
+                const card = createCard(i, suits);
+                row2.appendChild(card);
+            }
+            
+            container.appendChild(row1);
+            container.appendChild(row2);
+        };
+        
+        const createCard = (index, suits) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.id = `card-${index}`;
+            
+            const suit = suits[Math.floor(Math.random() * suits.length)];
+            
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-face card-front">${suit}</div>
+                    <div class="card-face card-back">🎉</div>
+                </div>
+            `;
+            
+            card.onclick = (e) => {
+                e.stopPropagation();
+                flipCard(card, index);
+            };
+            
+            return card;
+        };
+        
+        const flipCard = (cardEl, index) => {
+            if (!gameActive) return;
+            gameActive = false;
+            
+            cardEl.classList.add('pop');
+            playPopSound();
+            createConfetti(cardEl);
+            
+            setTimeout(async () => {
+                const winChance = Math.random() * 100;
+                let selectedPrize;
+                
+                if (winChance < 30) {
+                    const prizeIndex = Math.floor(Math.random() * prizes.length);
+                    const today = new Date().toISOString().split('T')[0];
+                    const prizeKey = `usedPrizes/${today}/${prizeIndex}`;
+                    const prizeRef = ref(database, prizeKey);
+                    
+                    const prizeSnapshot = await get(prizeRef);
+                    if (prizeSnapshot.exists()) {
+                        selectedPrize = '❌ حظ أوفر المسابقة القادمة 🍀';
+                    } else {
+                        selectedPrize = prizes[prizeIndex];
+                        await set(prizeRef, true);
+                    }
+                } else {
+                    selectedPrize = '❌ حظ أوفر المسابقة القادمة 🍀';
+                }
+                
+                // حفظ النتيجة في Firebase
+                const codeRef = ref(database, `gameCodes/${currentCode}`);
+                await update(codeRef, {
+                    used: true,
+                    prize: selectedPrize,
+                    timestamp: Date.now()
+                });
+                
+                showResult(selectedPrize);
+            }, 600);
+        };
+        
+        const playPopSound = () => {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const now = audioContext.currentTime;
+                
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                
+                osc.frequency.setValueAtTime(800, now);
+                osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+                
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                
+                osc.start(now);
+                osc.stop(now + 0.1);
+            } catch (e) {
+                console.log('صوت غير متاح');
+            }
+        };
+        
+        const createConfetti = (element) => {
+            const rect = element.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.textContent = ['🎉', '🎊', '⭐', '✨', '👑', '🏆'][Math.floor(Math.random() * 6)];
+                confetti.style.left = x + 'px';
+                confetti.style.top = y + 'px';
+                document.body.appendChild(confetti);
+                
+                const angle = (Math.PI * 2 * i) / 30;
+                const velocity = 8 + Math.random() * 5;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity - 8;
+                
+                let px = x, py = y;
+                let vx_curr = vx, vy_curr = vy;
+                
+                const animate = () => {
+                    px += vx_curr;
+                    py += vy_curr;
+                    vy_curr += 0.2;
+                    
+                    confetti.style.left = px + 'px';
+                    confetti.style.top = py + 'px';
+                    confetti.style.opacity = 1 - (py - y) / 300;
+                    
+                    if (py - y < 300) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        confetti.remove();
+                    }
+                };
+                
+                animate();
+            }
+        };
+        
+        const showResult = (prize) => {
+            const resultContent = document.getElementById('resultContent');
+            const resultTitle = document.querySelector('.result-title');
+            
+            if (prize === '❌ حظ أوفر المسابقة القادمة 🍀') {
+                resultTitle.innerHTML = '😔 للأسف! 😔';
+                resultTitle.style.color = '#D4A574';
+                resultContent.innerHTML = `<div class="prize" style="color: #D4A574; font-size: 1.5em;">${prize}</div>`;
+            } else {
+                resultTitle.innerHTML = '🎊 مبروك! 🎊';
+                resultTitle.style.color = '#8B4513';
+                resultContent.innerHTML = `<div class="prize">${prize}</div>`;
+            }
+            document.getElementById('remainingMsg').textContent = `من فضلك خد سكرين شوت الآن قبل الخروج  🍀`;
+            document.getElementById('resultModal').classList.add('active');
+        };
+        
+        window.closeResult = () => {
+            document.getElementById('resultModal').classList.remove('active');
+            showScreen('loginScreen');
+            document.getElementById('codeInput').value = '';
+            currentCode = null;
+        };
+        
+        // بدء التطبيق
+        loadCodesFromFirebase();
+    </script>
+</body>
+</html>
